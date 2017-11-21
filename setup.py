@@ -4,7 +4,7 @@ import scr
 from setuptools import setup, find_packages
 
 setup(
-        name="add_table",
+        name="scr_test",
         # в __init__ пакета
         version=scr.__version__,
         packages=find_packages(
