@@ -1,6 +1,7 @@
 import operator
 import random
 
+
 class Operator():
     Add = "add"
     Sub = "sub"
