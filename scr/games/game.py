@@ -47,8 +47,22 @@ class Task:
     def __repr__(self):
         return "{} - {}".format(self.__class__.__name__, self.task_line)
 
-class UserTasks:
+
+class Tasks:
+    def __init__(self, *args):
+        self.tasks = []
+
+    def mix(self):
+        random.shuffle(self.tasks)
+
+    def increase(self, multiplier):
+        if multiplier > 0:
+            self.tasks*=multiplier
+
+
+class UserTasks(Tasks):
     def __init__(self, task_list, *args):
+        super().__init__(*args)
         self.task_list = task_list
         self.tasks = []
 
@@ -60,8 +74,9 @@ class UserTasks:
         return "{} - {}".format(
             self.__class__.__name__, self.tasks.__class__.__name__)
 
-class AutoTasks:
+class AutoTasks(Tasks):
     def __init__(self, level, operand, *args):
+        super().__init__(*args)
         self.operand = operand
         self.level = level
         self.tasks = []
@@ -91,6 +106,12 @@ class Game:
         self.task_object = task_object
         self.task_object.create_tasks()
 
+    def mix_tasks(self):
+        self.task_object.mix()
+
+    def tasks_increase(self, multiplier):
+        self.task_object.increase(multiplier)
+
     def __repr__(self):
         return str(self.task_object.tasks)
 
@@ -100,5 +121,8 @@ class Game:
 if __name__ == '__main__':
 
 
-    g2 = Game(AutoTasks(7, "mul"))
-    print(g2)
+    game = Game(AutoTasks(7, "mul"))
+    game.tasks_increase(3)
+    game.mix_tasks()
+
+    print(game)
